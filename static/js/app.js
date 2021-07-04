@@ -146,29 +146,43 @@ function myGauge(id){
     {
         domain: { x: [0, 1], y: [0, 1] },
         type: 'indicator',
-        mode: 'gauge+number+delta',
+        mode: 'gauge',
         value: washFrequency,
 
         title: {
-            text: 'Belly Button Washing Frequency <br>Scrubs per Week',
-            font: { size: 24, color: 'black', family: 'Arial' }
+            text: 'Belly Button Washing Frequency <br><span style="color:grey;">Scrubs per Week</span>',
+            
         },
         gauge: {
-            axis: { range: [null, 9], tickwidth: 1, tickcolor: 'darkgrey' },
+            axis: { range: [null, 9], tickwidth: 1, tickcolor: 'darkgrey', nticks: 10},
             bar: { color: 'green', thickness: 0.3 },
             bgcolor: 'white',
-            borderwidth: 0,
-            bordercolor: 'gray',
+            borderwidth: 01,
+            bordercolor: 'black',
             
 
             axes: [{
                 pointers: [{
-                    value: 80,
                     type: 'Marker',
                     markerType: 'Circle'
                 }]
-            }],          
-
+            }],
+            steps: [
+              { range: [0, 1], color: '#f4f8f8' },
+              { range: [1, 2], color: '#E9F2F2' },
+              { range: [2, 3], color: '#D4E6E5' },
+              { range: [3, 4], color: '#BED9D8'},
+              { range: [4, 5], color: '#A8CCCD' },
+              { range: [5, 6], color: '#92BFC0' },
+              { range: [6, 7], color: '#7BB4B3' },
+              { range: [7, 8], color: '#64A6A6' },
+              { range: [8, 9], color: '#4B9A9A' }
+          ],                      
+          threshold: {
+            line: { color: "purple", width: 4 },
+            thickness: 0.75,
+            value: washFrequency
+          }
         },
     },
 ];
