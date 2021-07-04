@@ -14,6 +14,7 @@ d3.json('data/samples.json').then(data => {
   buildChart(data.names[0]);
   buildBar(data.names[0]);
   buildBubble(data.names[0]);
+  myGauge(data.names[0])
 });
 // called function to append drop down list
 function dropDownlist(data) {
@@ -29,6 +30,7 @@ function optionChanged(id) {
   buildChart(id);
   buildBar(id);
   buildBubble(id);
+  myGauge(id);
 };
 // fuction to 
 function buildChart(id) {
@@ -127,10 +129,57 @@ function buildBubble(id) {
     // Define the plot layout
     var layout = {
       title: "Bacteria Cultures Per Sample",
-      height:520,
-      width: 920
+
     };
     // Plot the chart to a div tag with id "bar-plot"
     Plotly.newPlot('bubble', data, layout);
   });
+};
+
+function myGauge(id){
+  d3.json('data/samples.json').then(data => {
+    data;
+    var myBacteria = data.metadata.filter(m => m.id == id)[0];
+    washFrequency = myBacteria.wfreq;
+    console.log(washFrequency);
+  var data = [
+    {
+        domain: { x: [0, 1], y: [0, 1] },
+        type: 'indicator',
+        mode: 'gauge+number+delta',
+        value: washFrequency,
+
+        title: {
+            text: 'Belly Button Washing Frequency <br>Scrubs per Week',
+            font: { size: 24, color: 'black', family: 'Arial' }
+        },
+        gauge: {
+            axis: { range: [null, 9], tickwidth: 1, tickcolor: 'darkgrey' },
+            bar: { color: 'green', thickness: 0.3 },
+            bgcolor: 'white',
+            borderwidth: 0,
+            bordercolor: 'gray',
+            
+
+            axes: [{
+                pointers: [{
+                    value: 80,
+                    type: 'Marker',
+                    markerType: 'Circle'
+                }]
+            }],          
+
+        },
+    },
+];
+// Layout 
+var layout = {
+    width: 440,
+    height: 360,
+    margin: { t: 35, r: 15, l: 15, b: 0 },
+    font: { color: 'black', family: 'Arial' }
+};
+// Render the plot to the div tag with id 'gauge'
+Plotly.newPlot('gauge', data, layout);
+});
 };
